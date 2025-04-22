@@ -4,8 +4,6 @@
 # enhances understanding pf the text's meaning ans structure
 # useful for parsing and ner
 # disadvantages - requires accurate model,which can be language dependent,may struggle with ambbiguous words based on context
-
-
 import nltk 
 from nltk.tokenize import word_tokenize
 nltk.download('puntk')

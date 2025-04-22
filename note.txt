@@ -1,0 +1,24 @@
+Corpus :  A corpus is a large collection of written or spoken texts used for linguistic analysis or natural language processing (NLP).
+Document : single piece of text within a corpus it can be an article , a paragraph or even a sentence depending on how the data is structured
+vocabulary: set of all unique words present in the corpus it can be article,a paragraph or even a sentence depending on how the data is structured
+TOKEN: smallest unit of text 
+frequency: no of times a particular token appears
+Unigram: A single word.
+
+Bigram: A sequence of two consecutive words.
+
+Trigram: A sequence of three consecutive words.
+
+N-gram: A sequence of n consecutive words used in language model.
+
+
+TF-IDF(t,d,D)=TF(t,d)×IDF(t,D)
+TF(t,d)= (Total number of terms in d) / (Number of times t appears in d​)
+
+IDF(t,D)=log( 1+DF(t) / N )
+TF-IDF in GenAI?
+Helps highlight important words while down weighting common terms (like "the", "is", "and").
+
+Improves text summarization, document retrieval, and semantic analysis.
+
+Used in embedding techniques, before feeding into generative models or classifiers.

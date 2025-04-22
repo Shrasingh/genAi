@@ -1,4 +1,4 @@
-# stemming and lemmatization
+# Stemming and lemmatization are two methods used in natural language processing (NLP) to reduce words to their base or root form, often called the lemma or stem. Stemming uses rule-based algorithms to strip off suffixes and prefixes, while lemmatization considers the word's context and meaning to find the appropriate base form. 
 import nltk
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 
@@ -15,3 +15,4 @@ print("Stemming:", s)
 lemmatizer = WordNetLemmatizer()
 l = [lemmatizer.lemmatize(word) for word in words]
 print("Lemmatization:", l)
+s
