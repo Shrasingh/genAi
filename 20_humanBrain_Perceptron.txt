@@ -1,0 +1,21 @@
+A perceptron is a fundamental building block in artificial neural networks, acting as a simplified model of a biological neuron. It takes multiple weighted inputs, combines them, and produces a single output based on a threshold. This output is typically binary, representing a decision (e.g., yes/no, 0/1).
+
+
+
+Key Components and Function:
+Input: A perceptron receives multiple inputs, which can represent features or data points. 
+Weights: Each input is associated with a weight, representing its importance or influence on the output. 
+Summation: The weighted inputs are summed up. 
+Bias: A bias term is added to the sum, allowing the activation function to be shifted. 
+Activation Function: The sum is then passed through an activation function, which typically outputs a binary value (0 or 1) based on a threshold. 
+Output: The final output is a single value, indicating the perceptron's decision. 
+
+
+
+Modal vs Human
+x                input            student
+weight           value         attention
+bias             !=0           notes  
+summation F      sum_up        Revision
+Activation F     training      Learning
+Loss F           diff          result

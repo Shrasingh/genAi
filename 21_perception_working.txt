@@ -1,0 +1,49 @@
+NEED OF NEURAL NETWORK:
+for the large dataset
+non linear relationship
+unstructured data 
+features extraction
+scalability
+
+LAYERS:
+input layer - data input
+hidden layer - model training adjusting weight
+output layer op 
+
+Activation F - add non linearity 
+
+
+PERCEPTRON vs MULTILAYER PERCEPTRON ->
+only linearly separable data, can learn complex , non-linear functions making it suitable for a wider range of problems.
+single layer, multiple layers to extract complex features at different levels of abstraction
+limited capacity, adjustable model capacity
+prone to underfitting, better fit for complex data
+no or one hidden layer, hidden layers for better representation
+
+
+
+Architecture-  
+perceptron :- composed of a single layer of neurons
+              only includes an input layer and an op layer
+              lacks hidden layers
+
+multi layer p :-  composed of multiple layers of neurons
+                  includes an input layer,one or more hidden layers, and an output layer
+                  hidden layers enable learning complex pattern
+
+        | Feature                 | **Perceptron**                                 | **Multilayer Perceptron (MLP)**                       |
+| ----------------------- | ---------------------------------------------- | ----------------------------------------------------- |
+| **Architecture**        | Single layer of neurons                        | Multiple layers (input, hidden, output)               |
+| **Learning Power**      | Can solve only **linearly separable** problems | Can solve **non-linear** and complex problems         |
+| **Hidden Layers**       | None                                           | One or more hidden layers                             |
+| **Activation Function** | Typically step function                        | Uses ReLU, sigmoid, tanh, etc.                        |
+| **Training Algorithm**  | Perceptron learning rule                       | Backpropagation with gradient descent                 |
+| **Example Use Case**    | Simple binary classification                   | Image recognition, NLP, complex decision-making tasks |
+          
+
+
+
+
+
+
+22_FORWARD AND BACKWARD PROPOGATION

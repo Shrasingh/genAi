@@ -1,0 +1,159 @@
+Neural Network Weight Updates – Simple Steps
+Input Forward Pass:
+Feed input through the network → get output (prediction).
+
+Loss Calculation:
+Compare predicted output with actual label → compute error/loss.
+
+Backward Pass (Backpropagation):
+Use chain rule to calculate how much each weight contributed to the error.
+
+Compute Gradients:
+Derive gradients (∂Loss/∂Weight) for each weight.
+
+Update Weights:
+Adjust weights to reduce error:
+
+New Weight
+=
+Old Weight
+−
+Learning Rate
+×
+Gradient
+New Weight=Old Weight−Learning Rate×Gradient
+🧠 Summary:
+Forward → Loss → Backward → Gradients → Update
+
+
+
+
+chain rule 
+
+
+
+
+So, we apply the chain rule repeatedly (layer by layer) in backpropagation.
+
+
+
+backpropagation mathematical approach
+
+
+
+
+
+
+
+
+The vanishing gradient problem refers to the difficulty of training deep neural networks due to gradients diminishing during backpropagation, making it hard for the lower layers to learn effectively. This happens because the chain rule in backpropagation can lead to exponentially small gradients as they are propagated backward through multiple layers. This slow or stalled learning in lower layers can hinder the network's ability to learn complex features and relationships. 
+Why does it happen?
+Choice of Activation Functions:
+Activation functions like sigmoid and tanh, with their small derivatives, can lead to exponentially small gradients as they are multiplied during backpropagation. 
+Deep Network Architecture:
+In deep networks, the signal (gradient) decays significantly as it propagates through multiple layers, especially with activation functions that have small derivatives in their saturation regions. 
+Backpropagation:
+The chain rule used in backpropagation to calculate gradients involves multiplying the gradients of individual layers. When gradients become small in earlier layers, the cumulative effect leads to vanishing gradients. 
+How is it addressed?
+Activation Functions:
+Using ReLU or its variants (e.g., Leaky ReLU, ELU) instead of sigmoid or tanh can help mitigate the problem, as they have a higher gradient for positive inputs and can avoid the saturation issues. 
+Initialization Techniques:
+Techniques like Xavier/0Glorot initialization or He initialization help to ensure that weights are initialized in a way that avoids early saturation and helps maintain a healthy range of gradients. 
+Batch Normalization:
+Batch normalization normalizes the input to each layer, preventing the gradients from vanishing or exploding by keeping the input distributions consistent. 
+Alternative Network Architectures:
+Using architectures like LSTMs or GRUs in Recurrent Neural Networks (RNNs) can help control the flow of gradients and preserve them over longer sequences, addressing the vanishing gradient problem in RNNs
+
+
+
+
+
+29 - root cause of this problem lies in the weights of the network rather than the choice of activation function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+V30- An activation function in a neural network determines whether a neuron should be activated or not,
+effectively controlling the flow of information through the network. It introduces non-linearity, allowing
+neural networks to learn complex patterns in data that linear models cannot. Activation functions are crucial for 
+transforming input signals into output signals, enabling the network to make predictions. 
+
+
+
+FEATURES OF ACTIVATION FUNCTION-:
+ 1.it should add non linearity - complex
+ 2.it should be zero centric,fast calculation 
+ 3.it should be differentiable -> global minima 
+ 4.Boundate 
+ sigmoid(0,1)
+ TanH(-1,1)
+ Bounded saturated output layer
+ unbounded (0,x)  hidden layer
+ 5.should not support vanishing gradient (weight of new = weight of old)
+
+
+
+Sigmoid Activation Function
+Formula: σ(x) = 1 / (1 + e^(-x))
+
+✅ Advantages:
+Smooth and bounded: Outputs between 0 and 1, useful for probability.
+
+Simple derivative: Easy to compute during backpropagation.
+
+Historically popular: Used in early neural networks and binary classification.
+
+❌ Disadvantages:
+Vanishing gradient problem: Gradients become very small for large inputs, slowing learning.
+
+Non-zero centred output: Can cause zig-zagging in gradient updates.
+
+Not ideal for deep networks: ReLU often performs better.
+
+
+
+
+TanH (Hyperbolic Tangent) Activation Function:
+
+Definition:
+tanh(x) = (e^x - e^(-x)) / (e^x + e^(-x))
+It outputs values between -1 and 1.
+
+✅ Advantages:
+Zero-centred: Helps gradients flow better than sigmoid (whose range is 0 to 1).
+non linearity differentiable zero centroid bounded
+Smooth gradients: Leads to better convergence during training.
+
+Works well for hidden layers in shallow networks.
+
+❌ Disadvantages:
+Vanishing gradients: For large positive/negative inputs, gradients become very small.
+expensive time consuming
+Slower computation compared to ReLU.
+
+Not ideal for deep networks, where ReLU usually performs better.
+
+In short:
+TanH squashes input to [-1, 1], is better than sigmoid for hidden layers due to zero-centred output, but suffers from vanishing gradients in deep networks.
+
+
+when to use - zero centric ,more range -: TanH
+
+
