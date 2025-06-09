@@ -1,0 +1,60 @@
+
+1. Binary Cross Entropy Loss (Log Loss)
+📌 Use Case: Binary classification (2 classes, like spam vs. not spam)
+📈 Formula:
+Loss= -[y log(y') + (1-y) log(1-y')]
+y ∈ is the true label
+y' ∈(0,1) is the predicted probability.
+
+✅ Pros:
+Works well when predicting probabilities.
+
+Encourages confidence in correct predictions.
+
+❌ Cons:
+Can lead to exploding gradients if probabilities are too close to 0 or 1.
+
+2. Categorical Cross Entropy Loss
+📌 Use Case: Multi-class classification with one-hot encoded labels.
+📈 Formula:
+Loss= -∑Yilog(Y'i)
+Yi is  the actual class (1 for the correct class, 0 otherwise),
+Y'i is the predicted probability for class i
+✅ Pros:
+Excellent for soft max output layers.
+
+Accurately penalizes incorrect class probability.
+
+❌ Cons:
+Not suitable for multi-label problems (use BinaryCrossEntropy instead).
+
+3. Hinge Loss (SVM Loss)
+📌 Use Case: Mainly used in Support Vector Machines (SVMs) for binary classification, where labels are -1 or +1.
+📈 Formula:
+Loss max(0,1-y.y')
+where y' is the raw model op not a probability
+y ∈ {-1,1} is the true label,
+
+✅ Pros:
+Encourages maximum margin separation.
+
+More robust to small misclassifications.
+
+❌ Cons:
+Doesn’t work with probability outputs.
+
+Only for linear classifiers or margin-based models.
+
+✅ When to Use Which?
+Loss Function	Best For
+Binary Cross Entropy	Binary classification with probabilistic outputs
+Categorical Cross Entropy	Multi-class classification (softmax output)
+Hinge Loss	Binary classification with SVM or margin-based models
+
+In short:
+
+Use Binary Cross Entropy for binary probs (0 or 1).
+
+Use Categorical Cross Entropy for multi-class with softmax.
+
+Use Hinge Loss when using SVM-style training or linear classifiers needing a margin.

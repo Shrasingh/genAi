@@ -1,0 +1,141 @@
+problem with other (before this )
+  saturate unbounded
+  need of fast convergence
+  need of less expensive
+
+
+Rectified Linear Unit   Max(0,x) - differentiable,fast convergence less expensive
+    max(0,x) if x>=0
+    0 if x<0
+
+problem 
+    it is not zero centric
+    partially differentiable
+    dead neuron problem 
+    (ek b zero = 0) no training
+
+
+
+solution 
+   small learning Rate 
+   variants -: non linear- exponential linear unit
+               linear- leaky r e l u , parametric r e l u 
+
+ when to use it:-
+   deep neural networks              
+   sparse representations 
+           
+
+Leaky ReLU is an activation function that allows a small, non-zero gradient when the input is negative.
+
+📌 Formula
+x if x>0 
+a*x if x<=0
+​
+ 
+Where 
+𝛼
+α is a small constant (e.g., 0.01).
+
+✅ When to Use
+Use when ReLU causes dead neurons (outputs stuck at 0).
+
+Useful in deep networks to maintain gradient flow during backpropagation.
+
+✅ Pros
+Prevents dying ReLU problem.
+
+Allows some gradient for negative values → better learning.
+
+❌ Cons
+Small negative slope may still cause slow learning for negative values.
+
+Choosing the best 
+𝛼
+α may need tuning.
+
+In short: Leaky ReLU is a modified ReLU that fixes dead neuron issues by allowing a small negative slope, making it better for deep neural networks.
+
+
+Parametric ReLU (PReLU) is an advanced version of Leaky ReLU where the negative slope (α) is learned during training instead of being a fixed constant.
+x it x>0
+a*x if x<=0
+α is a learnable parameter (unlike Leaky ReLU, where α is fixed).
+✅ Why Use PReLU
+Gives the network the flexibility to adapt the slope for negative inputs.
+
+Helps improve accuracy in deeper models by avoiding dead neurons and improving gradient flow.
+
+✅ Pros
+Learns optimal α for better performance.
+
+Fixes dying ReLU problem dynamically.
+
+Often gives better results than ReLU/Leaky ReLU in deep networks.
+
+❌ Cons
+Adds extra parameters → slightly increases model complexity.
+
+Can lead to overfitting if not regularized properly.
+
+More computational cost compared to ReLU.
+
+In short: PReLU is a flexible version of Leaky ReLU that learns how much negative slope to allow, improving model performance in deep learning tasks.
+
+
+ELU (Exponential Linear Unit) is an activation function that helps speed up learning and avoids dead neurons by allowing negative values in a smooth way.
+x if x>0
+a(e^x -1 ) if x<=0
+Where 
+ α>0 (usually 1)
+
+
+Why Use ELU?
+Unlike ReLU, ELU allows negative outputs, which helps the mean activations to be closer to zero, improving convergence during training.
+
+✅ Pros:
+Avoids dead neuron issue.
+
+Smoother gradient than ReLU → better learning.
+
+Mean activations closer to 0 → faster learning.
+
+❌ Cons:
+More computationally expensive due to exponential calculation.
+
+Needs to tune 𝛼
+ELU is like a smoother ReLU with negative output for negative inputs, helping deep networks converge faster and reducing dead neurons, but it's a bit slower to compute.
+
+
+
+Soft max Activation Function
+
+Soft max converts a vector of real numbers into a probability distribution — all values between 0 and 1 and summing to 1.
+
+Xi = e^Xi / summation j e^X j
+It’s used in the output layer of classification models (especially multi-class), to predict probabilities of each class.
+
+
+
+How It Works:
+Exponentiates each input to make all values positive.
+
+Normalizes them by dividing by the total sum → outputs a probability distribution.
+
+
+✅ Pros:
+Gives clear probability output for classification.
+
+Helps in multi-class classification.
+
+Works well with cross-entropy loss.
+
+❌ Cons:
+Sensitive to large input values → can cause numerical instability.
+
+Not ideal for multi-label problems (use sigmoid instead).
+
+Can lead to vanishing gradient if one class dominates.
+
+In short:
+Soft max turns raw scores into class probabilities for classification tasks, making it easy to pick the most likely class — but it’s sensitive to outliers and not ideal for multi-label outputs.

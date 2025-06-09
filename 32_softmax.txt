@@ -1,0 +1,44 @@
+
+| Feature          | **Soft max**                                       | **Swish**                                          |
+| ---------------- | ------------------------------------------------- | -------------------------------------------------- |
+| **Type**         | Output activation                                 | Hidden layer activation                            |
+| **Formula**      | $\frac{e^{x_i}}{\sum e^{x_j}}$                    | $x \c dot \sigma(x) = x \c dot \frac{1}{1 + e^{-x}}$ |
+| **Output Range** | (0, 1), sums to 1                                 | Can be negative or positive                        |
+| **Use Case**     | Last layer for **multi-class classification**     | Hidden layers in **deep neural networks**          |
+| **When to Use**  | When you need **probability scores**              | When you want **smooth gradients + performance**   |
+| **Pros**         | Converts scores to probabilities                  | Smooth, avoids dying neurons, better accuracy      |
+| **Cons**         | Only for final layer, not useful in hidden layers | Slightly slower than ReLU, needs tuning            |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+✅ When to Use Which
+Use Soft max:
+
+In the output layer of multi-class classification tasks (e.g., cat vs dog vs bird).
+
+When you need a probability distribution over classes.
+
+Use Swish:
+
+In hidden layers of deep networks (CNNs, transformers).
+
+When you want better gradient flow and smoother learning than ReLU.
+
+In short:
+Use Soft max in the final layer for class probabilities; use Swish in hidden layers to improve deep model performance with smooth, non-linear activations.
+
+

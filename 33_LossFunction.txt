@@ -1,0 +1,82 @@
+loss function = error = actual - prediction
+loss function - one row or linear
+cost function = for all dataset,average
+
+A loss function measures how well a model's predictions match the actual target values. It guides the model during training by penalizing incorrect predictions.
+
+2. MSE (Mean Squared Error)
+Formula:
+
+MSE = (actual - prediction)^2
+cost f = (actual - prediction)^2 /N 
+ 
+Use Case: Regression tasks when you want to penalize large errors more.
+
+✅ Pros:
+
+Smooth and differentiable.
+
+Heavily penalizes large errors → good for high-accuracy needs.
+
+❌ Cons:
+
+Sensitive to outliers.
+
+May overemphasize large errors.
+Regression - MSE MAE HUBER Loss
+Regression task - binary cross entropy(log loss) categorial cross entropy(multi loss) sparse categorial cross entropy
+
+
+MAE (Mean Absolute Error)
+Formula: 1/n (y-y')
+Use Case: Regression tasks when you want all errors treated equally.
+
+✅ Pros:
+
+Robust to outliers.
+
+Simple and interpretable.
+
+❌ Cons:
+
+Not differentiable at 0 (can slow gradient descent).
+
+Slower convergence than MSE.
+
+
+
+
+
+3. Huber Loss
+Formula: 1/2 (y-y')^2 if |y-y'|<= d 
+          d(|y-y'|-1/2d) otherwise
+
+Use Case: Regression tasks with mixed small + large errors, combining benefits of MAE and MSE.
+
+✅ Pros:
+
+Less sensitive to outliers than MSE.
+
+Smooth gradient like MSE when error is small.
+
+❌ Cons:
+
+Needs tuning the δ parameter.
+
+Slightly more complex than MAE/MSE.
+
+
+MAE is robust but slower.
+
+MSE is sensitive to outliers but smooth.
+
+Huber is the best of both — smooth and robust.
+
+
+| Loss Function | Use When...                                                                          |
+| ------------- | ------------------------------------------------------------------------------------ |
+| **MAE**       | You want equal treatment of all errors, or when outliers should not dominate.        |
+| **MSE**       | You care more about **larger errors** and want smooth convergence.                   |
+| **Huber**     | You need a **balance** between MSE and MAE — stable learning and outlier robustness. |
+
+
