@@ -1,0 +1,86 @@
+Recurrent neural network- for the sequential things 
+when - image captioning 
+       google translation
+       suggestion
+
+
+why not ANN Artificial Neural Network
+
+
+
+RNN (Recurrent Neural Network) is a type of neural network designed for sequential data — where the order of data matters, such as:
+
+Time series (stock prices)
+
+Natural language (sentences)
+
+Audio and video streams
+
+Traditional neural networks (like feedforward or CNNs) cannot retain memory of previous inputs. But in sequences, past context matters. RNNs solve this by:
+
+Having a loop structure to pass information from previous steps to the current step.
+
+Maintaining a hidden state that acts like memory.
+💡 How Does RNN Work?
+At each time step t, RNN:
+
+Takes input x_t
+
+Updates hidden state h_t using previous hidden state h_{t-1} and current input
+
+Produces output y_t
+
+
+
+
+| Step | Description         | Formula                                         |
+| ---- | ------------------- | ----------------------------------------------- |
+| 1    | Hidden state update | `h_t = tanh(W_h h * h_{t-1} + W_x h * x_t + b_h)` |
+| 2    | Output at time t    | `y_t = W_h y * h_t + b_y`                        |
+
+
+Where:
+
+x_t: input at time t
+
+h_t: hidden state at time t
+
+W_x h, W_h h, W_h y: weight matrices
+
+b_h, b_y: biases
+
+tanh: activation function (can be ReLU or others)
+
+
+
+Flow of RNN (Intuition)
+For a sequence like: "I love RNNs"
+
+First step: input "I", hidden state is empty
+
+Second step: input "love", combines it with memory of "I"
+
+Third step: input "RNNs", considers context of "I love"
+
+✅ Advantages
+Maintains memory of previous inputs
+
+Works well for sequence prediction tasks (language, music, time series)
+
+Parameter sharing across time steps
+
+❌ Disadvantages
+Vanishing/exploding gradients during training
+
+Hard to capture long-term dependencies
+
+Training is slower than feedforward networks
+
+
+
+
+| Variant                           | What it Solves                               | Feature                            |
+| --------------------------------- | -------------------------------------------- | ---------------------------------- |
+| **LSTM** (Long Short-Term Memory) | Handles long-term dependencies               | Uses gates (input, forget, output) |
+| **GRU** (Gated Recurrent Unit)    | Simpler than LSTM, still handles long memory | Uses update and reset gates        |
+| **Bidirectional RNN**             | Uses past and future context                 | Two RNNs, forward and backward     |

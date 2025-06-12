@@ -1,0 +1,131 @@
+🔍 What is an Optimizer in Machine Learning?
+An optimizer is an algorithm used to adjust the weights of a neural network to minimize the loss function during training — i.e., it helps the model learn by improving its predictions step-by-step.
+
+✅ Why is an Optimizer Needed?
+Without an optimizer, the model won't know how to update its weights based on the error (loss). It's essential for:
+
+Improving accuracy
+
+Speeding up convergence
+
+Escaping local minima
+
+⚙️ How is it Used?
+In code (e.g., TensorFlow or P y Torch):
+
+python
+Copy code
+optimizer = torch.opt I m.SGD(model.parameters(), l r=0.01)
+It updates weights using gradients from backpropagation.
+
+This happens in every iteration (epoch) of training.
+
+🧠 Types of Optimizers
+Optimizer	Description
+SGD (Stochastic Gradient Descent)	Updates weights using the average gradient; slow but simple
+Momentum	Adds past gradients to smooth updates
+AdaGrad	Adapts learning rate for each parameter; good for sparse data
+RMSProp	Solves AdaGrad's decay issue; good for RNNs
+Adam	Combines Momentum + RMSProp; widely used for deep learning
+Na dam	Adam + Neste r o v momentum for faster convergence
+
+✅ Advantages
+Efficient convergence to minimum loss
+
+Handles sparse data (e.g., AdaGrad)
+
+Works well with large datasets
+
+Reduces training time (Adam, RMSProp)
+
+❌ Disadvantages
+Some may get stuck in local minima (e.g., SGD)
+
+May require tuning learning rate
+
+Can overfit if not regularized
+
+Computational overhead (Adam uses more memory)
+
+🧩 Summary
+Feature	Optimizer Role
+Goal	Minimize loss, update weights
+Usage	During training via gradient descent
+Types	SGD, Adam, RMSProp, etc.
+Importance	Core to model learning and performance
+Challenge	Finding the right one and tuning it
+
+
+
+
+
+
+
+| Feature / Step                     | **RMSProp**                                                                   | **Adam** (Adaptive Moment Estimation)                                                                  |
+| ---------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Purpose**                        | Adapts learning rate using moving average of squared gradients                | Combines RMSProp + Momentum: uses moving averages of both gradients and their squares                  |
+| **1. Gradient**                    | `g_t = ∇J(θ_t)`                                                               | `g_t = ∇J(θ_t)`                                                                                        |
+| **2. Squared gradient average**    | `E[g²]_t = ρ * E[g²]_{t-1} + (1 - ρ) * g_t²`                                  | `v_t = β₂ * v_{t-1} + (1 - β₂) * g_t²`                                                                 |
+| **3. Update rule / weight update** | `θ_{t+1} = θ_t - (α / sqrt(E[g²]_t + ε)) * g_t`                               | `θ_{t+1} = θ_t - (α * m̂_t) / (sqrt(v̂_t) + ε)`                                                        |
+| **4. Additional term (momentum)**  | ❌ Not used                                                                    | `m_t = β₁ * m_{t-1} + (1 - β₁) * g_t`  →  (1 s t moment: mean of gradients)                              |
+| **5. Bias correction (Adam only)** | ❌ Not required                                                                | `m̂_t = m_t / (1 - β₁ᵗ)`<b r>`v̂_t = v_t / (1 - β₂ᵗ)`                                                   |
+| **Learning rate (α)**              | Usually set around `0.001`                                                    | Usually set around `0.001`                                                                             |
+| **Hyperparameters**                | `ρ` (decay rate, usually 0.9), `ε` (stability constant, small like 1e-8)      | `β₁` (0.9), `β₂` (0.999), `ε` (1e-8)                                                                   |
+| **Use Case**                       | Works well in RNNs and non-stationary objectives                              | Preferred in most deep learning models due to robustness                                               |
+| **Advantages**                     | - Solves vanishing learning rate issue < b r>- Efficient for non-stationary loss | - Fast convergence<b r>- Combines benefits of RMSProp + Momentum<b r>- Works well with noisy/sparse data |
+| **Disadvantages**                  | - May still oscillate< b r>- Lacks momentum (slower in complex landscapes)      | - May overshoot<b r>- More memory usage due to storing `m`, `v`, `m̂`, and `v̂`                         |
+
+
+
+ Notes
+θ = parameters (weights)
+
+g_t = gradient at time step t
+
+α = learning rate
+
+ε = small number to avoid division by zero
+
+β₁, β₂, ρ = decay rates for moving averages
+
+
+
+| Optimizer                             | Description                                                   |
+| ------------------------------------- | ------------------------------------------------------------- |
+| **SGD** (Stochastic Gradient Descent) | Updates weights using the average gradient; slow but simple   |
+| **Momentum**                          | Adds past gradients to smooth updates                         |
+| **AdaGrad**                           | Adapts learning rate for each parameter; good for sparse data |
+| **RMSProp**                           | Solves AdaGrad's decay issue; good for RNNs                   |
+| **Adam**                              | Combines Momentum + RMSProp; widely used for deep learning    |
+| **Na d am**                             | Adam + Nest e r o v momentum for faster convergence               |
+
+
+
+
+✅ Advantages
+Efficient convergence to minimum loss
+
+Handles sparse data (e.g., AdaGrad)
+
+Works well with large datasets
+
+Reduces training time (Adam, RMSProp)
+
+❌ Disadvantages
+Some may get stuck in local minima (e.g., SGD)
+
+May require tuning learning rate
+
+Can overfit if not regularized
+
+Computational overhead (Adam uses more memory)
+
+
+
+| Feature    | Optimizer Role                         |
+| ---------- | -------------------------------------- |
+| Goal       | Minimize loss, update weights          |
+| Usage      | During training via gradient descent   |
+| Types      | SGD, Adam, RMSProp, etc.               |
+| Importance | Core to model learning and performance |
+| Challenge  | Finding the right one and tuning it    |

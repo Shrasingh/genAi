@@ -17,9 +17,9 @@ Can lead to exploding gradients if probabilities are too close to 0 or 1.
 2. Categorical Cross Entropy Loss
 📌 Use Case: Multi-class classification with one-hot encoded labels.
 📈 Formula:
-Loss= -∑Yilog(Y'i)
+Loss= -∑Y I log ( Y' i)
 Yi is  the actual class (1 for the correct class, 0 otherwise),
-Y'i is the predicted probability for class i
+Y' I is the predicted probability for class I
 ✅ Pros:
 Excellent for soft max output layers.
 
@@ -48,13 +48,13 @@ Only for linear classifiers or margin-based models.
 ✅ When to Use Which?
 Loss Function	Best For
 Binary Cross Entropy	Binary classification with probabilistic outputs
-Categorical Cross Entropy	Multi-class classification (softmax output)
+Categorical Cross Entropy	Multi-class classification (soft max output)
 Hinge Loss	Binary classification with SVM or margin-based models
 
 In short:
 
 Use Binary Cross Entropy for binary probs (0 or 1).
 
-Use Categorical Cross Entropy for multi-class with softmax.
+Use Categorical Cross Entropy for multi-class with soft max.
 
 Use Hinge Loss when using SVM-style training or linear classifiers needing a margin.
