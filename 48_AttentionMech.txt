@@ -1,0 +1,82 @@
+The Attention Mechanism is a technique in neural networks that allows the model to focus on relevant parts of the input sequence when generating each output. It mimics how humans selectively focus on parts of information when processing or generating content.
+
+
+
+| Purpose                             | Explanation                                                                               |
+| ----------------------------------- | ----------------------------------------------------------------------------------------- |
+| **Overcomes Bottleneck**            | Replaces fixed-length context vector in Encoder–Decoder with dynamic focus across input.  |
+| **Improves Long Sequence Handling** | Helps retain important details over long sequences.                                       |
+| **Context-Aware Generation**        | At each step, the model "looks back" to the most relevant inputs.                         |
+| **Boosts Performance**              | Drastically improves tasks like machine translation, summarization, and image captioning. |
+
+
+
+How Attention Mechanism Works
+At each decoding step:
+
+Compare current decoder state with all encoder states.
+
+Calculate attention scores (alignment scores).
+
+Apply softmax to get attention weights.
+
+Use these weights to compute a context vector (weighted sum of encoder states).
+
+Use this context to generate the output token.
+
+
+
+
+| Step              | Formula                                                       | Description                                                   |
+| ----------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| 1. Score          | $e_{t,s} = \text{score}(h_t^{dec}, h_s^{enc})$                | Alignment score between decoder step `t` and encoder step `s` |
+| 2. Weights        | $\alpha_{t,s} = \frac{\exp(e_{t,s})}{\sum_{k} \exp(e_{t,k})}$ | Softmax over scores to get attention weights                  |
+| 3. Context Vector | $c_t = \sum_{s} \alpha_{t,s} \cdot h_s^{enc}$                 | Weighted sum of encoder hidden states                         |
+| 4. Final Output   | $\tilde{h}_t = \tanh(W_c [c_t; h_t^{dec}])$                   | Combine context and decoder state                             |
+| 5. Output Token   | $y_t = \text{softmax}(W_o \tilde{h}_t)$                       | Generate final token                                          |
+
+
+
+
+
+| Type                     | Description                                                  | Use Case                                      |
+| ------------------------ | ------------------------------------------------------------ | --------------------------------------------- |
+| **Additive (Bahdanau)**  | Uses feedforward network to compute scores                   | Early neural translation models               |
+| **Dot-Product (Luong)**  | Uses dot product between query & key                         | Faster, simpler, used in early Transformers   |
+| **Scaled Dot-Product**   | Scales dot product by $\sqrt{d_k}$ to avoid large values     | Used in Transformers                          |
+| **Multi-Head Attention** | Runs multiple attention layers in parallel                   | Core of Transformer architecture              |
+| **Self-Attention**       | Each token attends to every other token in the same sequence | Enables context-rich encoding in Transformers |
+
+
+
+Input: “I am eating an apple”
+
+Decoder at t=3 (generating “une”)
+
+Attention scores: higher focus on “an” and “apple”
+
+So, context vector emphasizes relevant input words for accurate generation.
+
+
+
+| Task                | Model                     |
+| ------------------- | ------------------------- |
+| Machine Translation | Transformer, T5           |
+| Text Summarization  | BART, Pegasus             |
+| Image Captioning    | Show, Attend, and Tell    |
+| Chatbots            | GPT series                |
+| Speech Recognition  | Listen, Attend, and Spell |
+
+
+
+
+
+| Concept    | Description                                              |
+| ---------- | -------------------------------------------------------- |
+| **What**   | Lets the model focus on specific input parts dynamically |
+| **Why**    | Handles long sequences, improves accuracy                |
+| **How**    | Computes alignment scores → softmax → context vector     |
+| **Result** | Smarter, context-aware sequence generation   
+
+
+            |

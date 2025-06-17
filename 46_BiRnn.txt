@@ -1,0 +1,46 @@
+BiDirectional RNN - A Bidirectional RNN is an advanced version of a standard RNN where the network processes the input sequence in both forward and backward directions. It captures past and future context at each time step.
+
+
+
+
+| Reason                      | Explanation                                                                                    |
+| --------------------------- | ---------------------------------------------------------------------------------------------- |
+| **Context from Both Sides** | Standard RNNs only learn from the past (left context); BiRNNs learn from both past and future. |
+| **Better Performance**      | Useful in tasks where the meaning of a word depends on both previous and next words.           |
+| **Common Use Cases**        | NLP (e.g., NER, POS tagging, machine translation), speech recognition, etc.                    |
+
+
+
+
+⚙️ How BiRNN Works?
+A BiRNN has two RNNs:
+Forward RNN: Processes the input from 
+𝑡=1-> T 
+Backward RNN: Processes the input from t= T->1
+
+
+At each time step, outputs from both RNNs are combined (concatenated or added).
+
+
+
+
+| Step                     | Formula                                                                                                                | Description                                               |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| 1. Forward Hidden State  | $\overrightarrow{h}_t = f(W_{xh}^{\rightarrow} x_t + W_{hh}^{\rightarrow} \overrightarrow{h}_{t-1} + b^{\rightarrow})$ | Hidden state from left to right                           |
+| 2. Backward Hidden State | $\overleftarrow{h}_t = f(W_{xh}^{\leftarrow} x_t + W_{hh}^{\leftarrow} \overleftarrow{h}_{t+1} + b^{\leftarrow})$      | Hidden state from right to left                           |
+| 3. Combined Hidden State | $h_t = [\overrightarrow{h}_t; \overleftarrow{h}_t]$ or $h_t = \overrightarrow{h}_t + \overleftarrow{h}_t$              | Merge both directions (concatenate or add)                |
+| 4. Output (optional)     | $y_t = g(W_{hy} h_t + b_y)$                                                                                            | Output at time `t`, where `g` is an activation or softmax |
+
+
+
+f is typically tanh or ReLU, g is usually softmax or identity depending on task.
+xt is the input, 
+ht is the combined hidden state.
+
+
+| Feature          | Description                                                              |
+| ---------------- | ------------------------------------------------------------------------ |
+| **Architecture** | Two RNNs (forward & backward)                                            |
+| **Advantage**    | Access to both past and future context                                   |
+| **Use Case**     | NLP tasks like text classification, named entity recognition, etc.       |
+| **Limitation**   | Cannot be used in real-time prediction where future input is unavailable |

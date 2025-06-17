@@ -1,0 +1,61 @@
+RNN,LSTM , ANN - human brain - long term memory sort term memory
+LSTM (Long Short-Term Memory) is a special type of Recurrent Neural Network (RNN) that solves the vanishing gradient problem, allowing the network to learn long-term dependencies effectively.
+
+
+
+
+
+| Reason                    | Explanation                                                               |
+| ------------------------- | ------------------------------------------------------------------------- |
+| Remembers long sequences  | Standard RNNs forget older data — LSTM retains important past information |
+| Avoids vanishing gradient | LSTM uses gates and memory cells to maintain flow of useful gradients     |
+| Effective in real tasks   | Used in NLP, speech, time series, translation, etc.                       |
+
+
+
+
+
+How LSTM Works?
+LSTM has a cell state (Cₜ) and three gates to control the flow of information:
+
+Forget gate (fₜ) – decides what to forget from the past.
+
+Input gate (iₜ) – decides what new info to store.
+
+Output gate (oₜ) – decides what to output.
+
+Cell state (Cₜ) – carries long-term memory.
+
+
+
+
+LSTM Architecture Formula (Step-by-step in Table)
+
+
+
+
+| Component       | Formula                            | Description                    |
+| --------------- | ---------------------------------- | ------------------------------ |
+| Forget gate     | `fₜ = σ(Wf · [hₜ₋₁, xₜ] + bf)`     | Decide what to forget          |
+| Input gate      | `iₜ = σ(Wi · [hₜ₋₁, xₜ] + bi)`     | Decide what to update          |
+| Candidate value | `C̃ₜ = tanh(Wc · [hₜ₋₁, xₜ] + bc)` | Create new candidate info      |
+| Cell state      | `Cₜ = fₜ * Cₜ₋₁ + iₜ * C̃ₜ`        | Update the cell state          |
+| Output gate     | `oₜ = σ(Wo · [hₜ₋₁, xₜ] + bo)`     | Decide what to output          |
+| Hidden state    | `hₜ = oₜ * tanh(Cₜ)`               | Output based on updated memory |
+
+
+
+
+"I did not like the movie"
+Vanilla RNN may forget the meaning of "not"
+
+LSTM remembers "not" modifies "like" → predicts Negative sentiment
+
+
+
+
+| Feature     | LSTM Advantage                       |
+| ----------- | ------------------------------------ |
+| Memory      | Keeps long-term information          |
+| Stability   | Avoids vanishing/exploding gradients |
+| Application | NLP, speech recognition, time-series |

@@ -1,0 +1,89 @@
+🤖 What is a Sequence Model in GenAI?
+A sequence model is a type of neural network designed to process ordered data, such as text, audio, video frames, or time series. In Generative AI (GenAI), it's used to generate, translate, summarize, or predict sequences.
+
+
+
+| Type                                 | Description                                            | Example Use Case                        |
+| ------------------------------------ | ------------------------------------------------------ | --------------------------------------- |
+| **RNN (Recurrent Neural Network)**   | Processes sequences step-by-step; remembers past       | Text generation, time series prediction |
+| **LSTM (Long Short-Term Memory)**    | Handles long-term dependencies using memory cells      | Language modeling, chatbot memory       |
+| **GRU (Gated Recurrent Unit)**       | Simplified LSTM, faster training                       | Real-time speech recognition            |
+| **BiRNN (Bidirectional RNN)**        | Looks at both past and future                          | Named Entity Recognition (NER)          |
+| **Seq2Seq (Encoder–Decoder)**        | Maps input sequence to output sequence                 | Machine translation (English → French)  |
+| **Attention-based Models**           | Focuses on relevant parts of input at each step        | Text summarization                      |
+| **Transformer**                      | Fully parallel, uses self-attention for global context | GPT, BERT, ChatGPT                      |
+| **GPT (Autoregressive Transformer)** | Generates next token based on previous tokens          | Story writing, code generation          |
+| **BERT (Masked Transformer)**        | Learns bidirectional context using masked tokens       | Sentence classification, Q\&A           |
+
+
+
+
+problem with lstm - sequene not equak to order ,ip != op
+
+
+
+
+
+What is Encoder–Decoder Architecture in Generative AI?
+The Encoder–Decoder architecture is a core framework used in sequence-to-sequence (Seq2Seq) models in Generative AI. It’s designed to convert one sequence (input) into another sequence (output) — e.g., translating a sentence from English to French, summarizing text, or generating responses in chatbots.
+
+
+
+| Purpose                                 | Explanation                                                                          |
+| --------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Handle Variable-Length Input/Output** | Works for sequences of different lengths (e.g., translation, summarization).         |
+| **Captures Context**                    | The encoder creates a compact representation of the input (called "context vector"). |
+| **Enables Generation**                  | The decoder uses this context to generate output tokens one by one.                  |
+
+
+
+
+🛠️ How Encoder–Decoder Works (Step-by-Step)
+Encoder reads the full input sequence and converts it into a fixed-size context vector (a compressed representation).
+
+Decoder uses this context vector to generate the output sequence, one token at a time, optionally with attention.
+
+
+
+| Step                    | Formula                                                | Description                                      |
+| ----------------------- | ------------------------------------------------------ | ------------------------------------------------ |
+| 1. Encoder Hidden State | $h_t^{enc} = f(W_{xh} x_t + W_{hh} h_{t-1}^{enc})$     | Encodes input sequence                           |
+| 2. Context Vector       | $c = h_T^{enc}$                                        | Final hidden state of encoder (summary of input) |
+| 3. Decoder Init         | $h_0^{dec} = c$                                        | Initialize decoder with context vector           |
+| 4. Decoder Hidden State | $h_t^{dec} = f(W_{yh} y_{t-1} + W_{hh} h_{t-1}^{dec})$ | Decoder generates each output                    |
+| 5. Output Token         | $y_t = \text{softmax}(W_{ho} h_t^{dec})$               | Converts hidden state to token prediction        |
+
+
+
+f is usually tanh or ReLU; x_t is input token, y_t is output token, and h_t is hidden state.
+
+
+Instead of using only the final encoder state (c), Attention lets the decoder look at all encoder states and weigh them based on relevance
+
+Instead of using only the final encoder state (c), Attention lets the decoder look at all encoder states and weigh them based on relevance:
+
+
+| Step                    | Formula                                         | Description                             |
+| ----------------------- | ----------------------------------------------- | --------------------------------------- |
+| 6. Attention Score      | $e_{t,s} = \text{score}(h_t^{dec}, h_s^{enc})$  | Compare decoder state to encoder states |
+| 7. Attention Weights    | $\alpha_{t,s} = \text{softmax}(e_{t,s})$        | Normalized importance                   |
+| 8. Context Vector       | $c_t = \sum_s \alpha_{t,s} h_s^{enc}$           | Weighted sum of encoder states          |
+| 9. Final Decoder Output | $y_t = \text{softmax}(W_{ho} [h_t^{dec}; c_t])$ | Decoder output using attention          |
+
+
+
+| Task                    | Input                             | Output             | Model Type                   |
+| ----------------------- | --------------------------------- | ------------------ | ---------------------------- |
+| **Machine Translation** | "How are you?"                    | "Comment ça va ?"  | Seq2Seq with attention       |
+| **Text Summarization**  | Long paragraph                    | Short summary      | Transformer Encoder–Decoder  |
+| **Image Captioning**    | Image (encoded as feature vector) | "A cat on a bed"   | CNN + RNN decoder            |
+| **Speech to Text**      | Audio waveform                    | Text transcription | Audio encoder + text decoder |
+
+
+
+| Component          | Role                                                                |
+| ------------------ | ------------------------------------------------------------------- |
+| **Encoder**        | Reads and compresses input                                          |
+| **Context Vector** | Bridges encoder and decoder                                         |
+| **Decoder**        | Generates output step-by-step                                       |
+| **Attention**      | Improves output quality by focusing on important parts of the input |

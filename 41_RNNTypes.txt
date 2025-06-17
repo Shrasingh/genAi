@@ -1,0 +1,150 @@
+| Type                                   | Structure                        | Description                                | Example Use Case                      |
+| -------------------------------------- | -------------------------------- | ------------------------------------------ | ------------------------------------- |
+| **1. One-to-One**                      | Single Input → Single Output     | Traditional feedforward NN, not really RNN | Image classification                  |
+| **2. One-to-Many**                     | Single Input → Sequence Output   | One input generates a sequence             | Image → Caption generation            |
+| **3. Many-to-One**                     | Sequence Input → Single Output   | Full input sequence → one final output     | Sentiment analysis, spam detection    |
+| **4. Many-to-Many (Same Length)**      | Sequence Input → Sequence Output | Input and output are aligned step-by-step  | POS tagging, Named Entity Recognition |
+| **5. Many-to-Many (Different Length)** | Sequence Input → Sequence Output | Input and output lengths may differ        | Machine translation                   |
+
+
+
+
+
+
+1. One-to-One:
+Input:       x
+Output:      y
+
+2. One-to-Many:
+Input:       x
+Output:      y1 → y2 → y3
+
+3. Many-to-One:
+Input:       x1 → x2 → x3
+Output:                    y
+
+4. Many-to-Many (Same length):
+Input:       x1 → x2 → x3
+Output:      y1 → y2 → y3
+
+5. Many-to-Many (Diff. length):
+Input:       x1 → x2 → x3
+                ↓   ↓   ↓
+              Encoder
+                ↓   ↓   ↓
+Output:      y1 → y2 → y3 → y4  (e.g., translation)
+
+
+
+
+
+
+| Type                       | Example                                  |
+| -------------------------- | ---------------------------------------- |
+| One-to-One                 | Classify whether an image contains a cat |
+| One-to-Many                | Generate music from a single note        |
+| Many-to-One                | Predict movie sentiment from a review    |
+| Many-to-Many (same length) | Tag parts of speech in a sentence        |
+| Many-to-Many (diff length) | Translate English to French              |
+
+
+
+
+
+RNN (Recurrent Neural Network) is a type of neural network designed for sequential data — like time series, text, speech, or video. Unlike traditional neural networks, RNNs have a memory that captures information about what has been previously calculated. This makes them ideal for tasks where the order of inputs matters.
+
+
+
+
+
+
+| Reason                | Explanation                                                                |
+| --------------------- | -------------------------------------------------------------------------- |
+| Memory of past inputs | RNNs can use previous data to influence current output (important in text) |
+| Sequential modeling   | Used in NLP, time series, audio, and video sequence tasks                  |
+| Parameter sharing     | Same weights are applied at each time step                                 |
+
+
+
+
+How RNN Works?
+At each time step t, it takes input xₜ and previous hidden state hₜ₋₁, and updates its current state hₜ:
+
+
+| Component         | Formula                        |
+| ----------------- | ------------------------------ |
+| Hidden state      | `hₜ = tanh(Wₕhₜ₋₁ + Wₓxₜ + b)` |
+| Output (optional) | `yₜ = Wᵧhₜ + c`                |
+
+
+
+| Type                             | Description                                              | Example Use Case                             |
+| -------------------------------- | -------------------------------------------------------- | -------------------------------------------- |
+| 1. Vanilla RNN                   | Basic RNN model, suffers from vanishing gradients        | Predict next word in a short sentence        |
+| 2. LSTM (Long Short-Term Memory) | Handles long dependencies, uses gates for memory control | Language translation, sentiment analysis     |
+| 3. GRU (Gated Recurrent Unit)    | Simplified LSTM with fewer gates, faster to train        | Chatbots, time-series forecasting            |
+| 4. Bidirectional RNN             | Processes input from both directions (past + future)     | Named Entity Recognition, Speech Recognition |
+| 5. Deep RNN                      | Stacked RNN layers for learning complex sequences        | Music generation, text generation            |
+
+
+1. Vanilla RNN (Simple)
+text
+Copy code
+Input: I love
+Model: RNN predicts the next word
+Output: 'coding'
+
+
+
+2. LSTM (Long sentences)
+text
+Copy code
+Input: "The movie was not bad at all."
+Model: LSTM captures that "not bad" is positive.
+Output: Sentiment = Positive
+
+
+3. GRU (Efficient)
+text
+Copy code
+Input: Temperature over 30 days
+Model: GRU forecasts next 7 days
+Output: Time series forecast
+
+
+
+4. Bidirectional RNN
+text
+Copy code
+Input: "Apple is looking at buying a startup."
+Model: Looks at full sentence in both directions
+Output: Tags "Apple" as a company (NER task)
+
+
+5. Deep RNN
+text
+Copy code
+Input: Large paragraph
+Model: Stacked RNN layers for deep pattern understanding
+Output: Summary of the paragraph
+
+
+
+Summary
+RNN = neural network for sequence modeling.
+
+Why: It remembers past information.
+
+How: Loops over time steps using hidden states.
+
+Types:
+
+Vanilla RNN — simple, short dependencies.
+
+LSTM — long-term memory.
+
+GRU — efficient LSTM.
+
+Bi-RNN — uses context from both directions.
+
+Deep RNN — multiple layers for complexity.

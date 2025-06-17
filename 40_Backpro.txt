@@ -1,1 +1,55 @@
+BACK PROPOGATION through time BPTT- to find loss , reduce it 
 
+Backpropagation Through Time (BPTT) is an extension of the backpropagation algorithm used for training Recurrent Neural Networks (RNNs). It handles the sequential nature of data in RNNs by unrolling the network through time and then applying backpropagation on the unrolled version.
+
+
+| Purpose                 | Explanation                                                                                                 |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Handle Sequential Data  | RNNs process sequences; BPTT allows training them by accounting for how earlier steps influence later ones. |
+| Gradient Flow Over Time | Helps compute gradients across multiple time steps for parameters shared across all steps.                  |
+
+
+
+
+
+
+How BPTT Works?
+Unroll the RNN for T time steps — treat it as a deep feedforward network with shared weights.
+
+Compute forward pass from t=1 to T.
+
+Calculate loss at each step or only at the final step.
+
+Backpropagate the error through time (from T to 1).
+
+Update shared weights using gradients accumulated across all time steps.
+
+
+
+| Step | Formula                                                                                                                                                      | Description                                                    |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| 1    | $h_t = f(W_{hh}h_{t-1} + W_{xh}x_t + b_h)$                                                                                                                   | Hidden state at time step `t`                                  |
+| 2    | $y_t = W_{hy}h_t + b_y$                                                                                                                                      | Output at time step `t`                                        |
+| 3    | $L = \sum_{t=1}^T \mathcal{L}(y_t, \hat{y}_t)$                                                                                                               | Total loss over all time steps                                 |
+| 4    | $\frac{\partial L}{\partial W} = \sum_{t=1}^T \frac{\partial L}{\partial y_t} \cdot \frac{\partial y_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial W}$ | Gradient of loss w\.r.t. weights using chain rule              |
+| 5    | $\delta_t = \frac{\partial L}{\partial h_t} + W_{hh}^T \delta_{t+1} \cdot f'(a_t)$                                                                           | Recursive error at time `t`, where $a_t$ is the pre-activation |
+
+
+
+
+
+
+
+| Problem                       | Reason                                                              |
+| ----------------------------- | ------------------------------------------------------------------- |
+| Vanishing/Exploding Gradients | Long sequences lead to unstable gradients when propagated backward. |
+| High Computation              | Unrolling over many steps is costly.                                |
+| Memory Intensive              | Stores all intermediate states for backpropagation.                 |
+
+
+
+
+
+Truncated BPTT: Limits the number of time steps to unroll to reduce computation.
+
+Gradient Clipping: Prevents exploding gradients.

@@ -1,0 +1,76 @@
+GRU (Gated Recurrent Unit) is often preferred over LSTM (Long Short-Term Memory) in practical deep learning tasks due to simpler structure, faster training, and comparable or even better performance in many cases.
+
+
+
+
+| Feature     | LSTM                               | GRU                                                        |
+| ----------- | ---------------------------------- | ---------------------------------------------------------- |
+| Gates       | 3 (input, forget, output)          | 2 (update, reset)                                          |
+| Memory Cell | Yes (`c_t`)                        | No (merged with hidden state `h_t`)                        |
+| Parameters  | More (due to more gates)           | Fewer                                                      |
+| Speed       | Slower (more computation per step) | Faster                                                     |
+| Performance | Good for long sequences            | Often performs equally well or better on shorter sequences |
+
+
+
+
+
+
+
+
+
+
+
+Reasons to Prefer GRU
+Faster Training:
+Fewer gates = fewer parameters = less computation = faster training and inference.
+
+Simpler Architecture:
+Easier to implement and tune; good default choice when LSTM isn’t giving clear benefits.
+
+Comparable Accuracy:
+GRUs often match or exceed LSTM performance on many tasks like sentiment analysis, speech recognition, and time series prediction.
+
+Fewer Data Requirements:
+With fewer parameters, GRU generalizes better on smaller datasets.
+
+
+
+Task: Predict positive or negative sentiment from tweets (short text).
+
+Dataset: Twitter Sentiment 140
+
+
+| Model | Accuracy | Training Time |
+| ----- | -------- | ------------- |
+| LSTM  | 85.2%    | 120 minutes   |
+| GRU   | 85.4%    | 80 minutes    |
+
+
+👉 GRU gives same or better accuracy with less training time — better efficiency!
+
+
+
+| Name                    | Formula                                                  |
+| ----------------------- | -------------------------------------------------------- |
+| Update gate $z_t$       | $z_t = \sigma(W_z x_t + U_z h_{t-1})$                    |
+| Reset gate $r_t$        | $r_t = \sigma(W_r x_t + U_r h_{t-1})$                    |
+| Candidate $\tilde{h}_t$ | $\tilde{h}_t = \tanh(W_h x_t + U_h (r_t \odot h_{t-1}))$ |
+| Final state $h_t$       | $h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t$  |
+
+
+
+σ = sigmoid, ⊙ = element-wise multiplication.
+
+
+
+
+ When to Prefer GRU
+Working with shorter sequences
+
+Need faster training/inference
+
+Smaller datasets
+
+Want simpler model with good accuracy
+

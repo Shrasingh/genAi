@@ -1,0 +1,46 @@
+Gated Recurrent unit GRU-Gated Recurrent Unit (GRU) is a type of Recurrent Neural Network (RNN) designed to solve the vanishing gradient problem and capture long-term dependencies in sequential data, while being simpler and faster than LSTM.
+
+
+| Reason                         | Explanation                                                                            |
+| ------------------------------ | -------------------------------------------------------------------------------------- |
+| **Vanishing Gradient Problem** | Traditional RNNs struggle with long-term dependencies; GRU mitigates this using gates. |
+| **Simpler than LSTM**          | GRU uses fewer gates than LSTM (2 vs. 3), making it faster and easier to train.        |
+| **Effective Memory Control**   | Learns what to keep or forget using update and reset gates.                            |
+| **Efficient Training**         | Fewer parameters → faster convergence and better performance on smaller datasets.      |
+
+
+
+
+How GRU Works?
+GRU uses two main gates:
+
+Update Gate (z_t): Controls how much of the past information to keep.
+
+Reset Gate (r_t): Decides how much past information to forget when computing the current state.
+
+
+
+
+| Step                      | Formula                                                  | Description                    |
+| ------------------------- | -------------------------------------------------------- | ------------------------------ |
+| 1. Update Gate            | $z_t = \sigma(W_z x_t + U_z h_{t-1})$                    | How much of the past to keep   |
+| 2. Reset Gate             | $r_t = \sigma(W_r x_t + U_r h_{t-1})$                    | How much of the past to forget |
+| 3. Candidate Hidden State | $\tilde{h}_t = \tanh(W_h x_t + U_h (r_t \odot h_{t-1}))$ | New memory content             |
+| 4. Final Hidden State     | $h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t$  | Mix of old and new information |
+
+
+
+σ: sigmoid activation
+tanh: tanh activation
+⊙: element-wise multiplication
+xt: input at time step t
+h t-1  previous hidden state
+
+
+GRU = RNN with gating mechanism.
+
+Easier & faster than LSTM.
+
+Handles sequences effectively.
+
+Fewer gates = simpler computation.

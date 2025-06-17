@@ -1,0 +1,35 @@
+RNNs are powerful, but they come with limitations that can affect learning and performance. Below is a clean table with the most important problems and their corresponding solutions:
+
+
+
+
+| Problem                                      | Description                                                           | Solution                                                | Explanation                                                                |
+| -------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1. **Vanishing Gradient**                    | Gradients become very small over time → learning stalls               | ✅ Use **LSTM** or **GRU**                               | These models use gates to preserve gradients over long sequences           |
+| 2. **Exploding Gradient**                    | Gradients become very large → model becomes unstable                  | ✅ Gradient Clipping                                     | Clip gradients during backprop to keep them within a safe range            |
+| 3. **Short-term Memory**                     | RNNs forget long-past inputs quickly                                  | ✅ Use **LSTM/GRU**                                      | These are designed to capture long-term dependencies                       |
+| 4. **Training is Slow**                      | Sequential computation prevents parallelism                           | ✅ Use **Transformer** or **Attention**                  | Transformers allow parallel training and better long-range context capture |
+| 5. **Difficulty in Learning Long Sequences** | RNNs struggle with very long input sequences                          | ✅ Use **Bidirectional RNNs** or **Attention Mechanism** | Looks at context from both past and future or assigns importance to tokens |
+| 6. **Overfitting**                           | Too many parameters on small datasets                                 | ✅ Use **Dropout** / **Regularization**                  | Reduces model complexity during training                                   |
+| 7. **Context Bottleneck**                    | In encoder-decoder, one hidden state has to summarize entire sequence | ✅ Use **Attention Mechanism**                           | Allows decoder to access all encoder states, not just the last one         |
+
+
+
+LSTM: Long Short-Term Memory – fixes memory problems using gates.
+
+GRU: Gated Recurrent Unit – simplified LSTM with similar power.
+
+Attention: Allows model to focus on important parts of input.
+
+Gradient Clipping: Forces gradients to stay within a fixed threshold.
+
+Transformer: A model architecture that uses attention, not recurrence.
+
+
+
+| Issue                 | Solution    |
+| --------------------- | ----------- |
+| Forgetting long input | LSTM / GRU  |
+| Slow training         | Transformer |
+| Unstable gradients    | Clipping    |
+| Poor context handling | Attention   |
