@@ -1,0 +1,81 @@
+🔷 What is Multi-Head Attention?
+Multi-Head Attention (MHA) is a mechanism in the Transformer architecture where multiple self-attention operations are performed in parallel, each with its own set of learned weights.It helps the model focus on different parts of the input simultaneously, capturing richer relationships.
+
+
+🔷 Why Multi-Head Attention?
+| Problem in Single Attention                | How Multi-Head Solves It                                         |
+| ------------------------------------------ | ---------------------------------------------------------------- |
+| Captures only **one** type of relationship | MHA captures **multiple dependencies** (e.g., syntax, semantics) |
+| Limited expressive power                   | MHA increases model capacity **without increasing depth**        |
+| Doesn’t generalize well to complex data    | Allows learning from **different representation subspaces**      |
+
+
+🔷 How Multi-Head Attention Works (Step-by-Step)
+Let input vector = X
+Linear Projection:
+Project X into h different sets of Query (Q), Key (K), and Value (V) using different learned matrices.
+
+Parallel Attention Heads:
+Each head performs Scaled Dot-Product Attention independently.
+
+Concatenate Heads:
+Combine all h outputs into one tensor.
+
+Final Linear Layer:
+Apply a linear transformation to merge information.
+
+
+🔷 Multi-Head Attention Formula (Table Form)
+| Step                       | Formula                                                                            |
+| -------------------------- | ---------------------------------------------------------------------------------- |
+| 1. Linear projections      | $Q_i = XW_i^Q,\ K_i = XW_i^K,\ V_i = XW_i^V$ for head $i \in [1, h]$               |
+| 2. Scaled dot-product      | $\text{Attention}_i = \text{softmax}\left(\frac{Q_i K_i^T}{\sqrt{d_k}}\right) V_i$ |
+| 3. Concatenate all heads   | $\text{Concat} = [\text{Attention}_1; \ldots; \text{Attention}_h]$                 |
+| 4. Final output projection | $\text{Output} = \text{Concat} \cdot W^O$                                          |
+
+| **Symbol** | **Meaning**                              |
+| ---------- | ---------------------------------------- |
+| d_k      | Dimension of keys                        |
+| h        | Number of heads                          |
+| W^Q      | Learned projection matrix for **Query**  |
+| W^K      | Learned projection matrix for **Key**    |
+| W^V      | Learned projection matrix for **Value**  |
+| W^O      | Learned projection matrix for **Output** |
+
+
+
+🔷 Pros and Cons of Multi-Head Attention
+| Pros ✅                                     | Cons ❌                                      |
+| ------------------------------------------ | ------------------------------------------- |
+| Captures diverse relationships             | More parameters → **increased computation** |
+| Parallel computation → efficient training  | Harder to interpret                         |
+| Enhances model's expressive power          | May overfit if too many heads               |
+| Enables better generalization in sequences | Needs careful tuning (head count, dims)     |
+
+
+
+🔷 Visualization
+Input → [Q1,K1,V1] → Attention Head 1 \
+        [Q2,K2,V2] → Attention Head 2  \
+        ...                            → Concat → Linear → Output
+        [Qh,Kh,Vh] → Attention Head h  /
+
+
+
+| Concept        | Description                                                      |
+| -------------- | ---------------------------------------------------------------- |
+| Definition     | Parallel self-attention operations with independent projections. |
+| Purpose        | Capture multiple types of relationships in one pass.             |
+| Key Formula    | Attention(Q,K,V) = softmax(QKᵀ/√d\_k) × V                        |
+| Multiple Heads | Each with own $W^Q, W^K, W^V$ → rich features                    |
+| Final Output   | Concatenated & linearly transformed output                       |
+| Used in        | GPT, BERT, T5, Vision Transformers, ChatGPT, etc.                |
+
+
+When we prompt ChatGPT:
+
+Each word gets converted into vectors
+
+Multi-head attention allows ChatGPT to understand syntax, meaning, and context all at once
+
+This understanding powers text generation, summarization, coding, reasoning, etc.

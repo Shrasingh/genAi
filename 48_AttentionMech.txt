@@ -18,7 +18,7 @@ Compare current decoder state with all encoder states.
 
 Calculate attention scores (alignment scores).
 
-Apply softmax to get attention weights.
+Apply soft max to get attention weights.
 
 Use these weights to compute a context vector (weighted sum of encoder states).
 
@@ -30,10 +30,10 @@ Use this context to generate the output token.
 | Step              | Formula                                                       | Description                                                   |
 | ----------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
 | 1. Score          | $e_{t,s} = \text{score}(h_t^{dec}, h_s^{enc})$                | Alignment score between decoder step `t` and encoder step `s` |
-| 2. Weights        | $\alpha_{t,s} = \frac{\exp(e_{t,s})}{\sum_{k} \exp(e_{t,k})}$ | Softmax over scores to get attention weights                  |
-| 3. Context Vector | $c_t = \sum_{s} \alpha_{t,s} \cdot h_s^{enc}$                 | Weighted sum of encoder hidden states                         |
+| 2. Weights        | $\alpha_{t,s} = \frac{\exp(e_{t,s})}{\sum_{k} \exp(e_{t,k})}$ | Soft max over scores to get attention weights                  |
+| 3. Context Vector | $c_t = \sum_{s} \alpha_{t,s} \c dot h_s^{enc}$                 | Weighted sum of encoder hidden states                         |
 | 4. Final Output   | $\tilde{h}_t = \tanh(W_c [c_t; h_t^{dec}])$                   | Combine context and decoder state                             |
-| 5. Output Token   | $y_t = \text{softmax}(W_o \tilde{h}_t)$                       | Generate final token                                          |
+| 5. Output Token   | $y_t = \text{soft max}(W_o \tilde{h}_t)$                       | Generate final token                                          |
 
 
 
@@ -41,7 +41,7 @@ Use this context to generate the output token.
 
 | Type                     | Description                                                  | Use Case                                      |
 | ------------------------ | ------------------------------------------------------------ | --------------------------------------------- |
-| **Additive (Bahdanau)**  | Uses feedforward network to compute scores                   | Early neural translation models               |
+| **Additive (Ba h d ana u)**  | Uses feedforward network to compute scores                   | Early neural translation models               |
 | **Dot-Product (Luong)**  | Uses dot product between query & key                         | Faster, simpler, used in early Transformers   |
 | **Scaled Dot-Product**   | Scales dot product by $\sqrt{d_k}$ to avoid large values     | Used in Transformers                          |
 | **Multi-Head Attention** | Runs multiple attention layers in parallel                   | Core of Transformer architecture              |
@@ -51,7 +51,7 @@ Use this context to generate the output token.
 
 Input: “I am eating an apple”
 
-Decoder at t=3 (generating “une”)
+Decoder at t=3 (generating “u ne”)
 
 Attention scores: higher focus on “an” and “apple”
 
@@ -75,7 +75,7 @@ So, context vector emphasizes relevant input words for accurate generation.
 | ---------- | -------------------------------------------------------- |
 | **What**   | Lets the model focus on specific input parts dynamically |
 | **Why**    | Handles long sequences, improves accuracy                |
-| **How**    | Computes alignment scores → softmax → context vector     |
+| **How**    | Computes alignment scores → soft max → context vector     |
 | **Result** | Smarter, context-aware sequence generation   
 
 

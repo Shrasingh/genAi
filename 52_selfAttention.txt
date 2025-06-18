@@ -1,0 +1,114 @@
+word embedding :- average embedding -> we need contextual embedding
+Attention Mechanism:- sequential attention -> parallel
+
+contextual embedding parallelism -> self attention
+
+dot product:- semantic relation similarity
+embedding:- 
+            static
+            dynamic:-
+                      contextual
+                      task based embedding
+
+
+
+
+1. What is Self-Attention?
+Self-Attention is a mechanism that allows a model to focus on different parts of the input sequence while encoding a particular word.Instead of processing words in order (like RNNs), self-attention lets each word look at other words to understand context and meaning.
+
+🔷 2. Why Self-Attention? 
+🧠 Problem with older models (RNN, LSTM)
+PROBLEM               Description
+| Problem          | Description                           |
+| ---------------- | ------------------------------------- |
+| ❌ Sequential     | Can’t parallelize → slow to train     |
+| 📏 Memory Issues | Forget long-distance relationships    |
+| 🔄 Fixed Context | Each word gets limited, local context |
+
+✅ Self-Attention helps:
+| Benefit          | Description                                                         |
+| ---------------- | ------------------------------------------------------------------- |
+| 🔍 Context-Aware | Each word sees the **whole sequence**                               |
+| ⚡ Parallelizable | Matrix-based → train much faster                                    |
+| 📈 Scales Well   | Works with long input sequences (GPT-4 handles thousands of tokens) |
+
+🔷 3. How Self-Attention Works? (Step-by-Step)
+Let’s say input = ["The", "cat", "sat"]
+
+
+Step 1: Create Query (Q), Key (K), Value (V)
+For each word embedding vector x, we create:
+symbol      meaning
+| Symbol | Meaning                       |
+| ------ | ----------------------------- |
+| Q      | What this word is looking for |
+| K      | What this word contains       |
+| V      | The value this word carries   |
+these are learned projections:
+     Q = X * W_Q
+     K = X * W_K
+     V = X * W_V
+
+
+where:
+X: input matrix (tokens as embeddings)
+W_Q, W_K, W_V: learned weight matrices
+
+
+Step 2: Compute Attention Scores (Similarity)
+We compare Q with K: 
+                   Scores = Q × Kᵀ
+These scores show how much focus each word should give to every other word.
+
+
+Step 3: Normalize (Soft_max)
+Attention Weights = soft_max(Q × Kᵀ / √d_k)
+We divide by √d_k to stabilize gradients.
+
+Step 4: Weighted Sum with V
+Output = Attention Weights × V
+This gives each word a new vector, enriched with context from all words.
+🔷 Self-Attention Formula Table
+| Step    | Formula                     | Meaning                         |
+| ------- | --------------------------- | ------------------------------- |
+| Query   | Q = X × W\_Q                | What we want to find            |
+| Key     | K = X × W\_K                | What each word contains         |
+| Value   | V = X × W\_V                | Information of each word        |
+| Scores  | Q × Kᵀ                      | How much to attend to each word |
+| Scaled  | (Q × Kᵀ) / √d\_k            | Normalize for dimension         |
+| Weights | soft_max((Q × Kᵀ) / √d\_k)   | Attention distribution          |
+| Output  | soft_max((Q × Kᵀ)/√d\_k) × V | Final attended representation   |
+
+
+
+🔷 5. Pros and Cons of Self-Attention
+| ✅ Pros                                         | ❌ Cons                                       |
+| ---------------------------------------------- | -------------------------------------------- |
+| Allows long-range dependencies                 | Costly on long sequences (O(n²) memory/time) |
+| Fully parallelizable (fast training)           | Needs position encoding (no order awareness) |
+| Learns flexible relationships (not fixed size) | Requires lots of data to train effectively   |
+| Works across domains (text, vision, speech)    | Attention is hard to interpret               |
+
+
+
+🔷 6. Why is Self-Attention Crucial in GenAI?
+| Use-case       | Role of Self-Attention                                        |
+| -------------- | ------------------------------------------------------------- |
+| ChatGPT, GPT-4 | Understands **global context** across long prompts            |
+| BERT, RoBERTa  | Improves understanding of sentence relationships              |
+| DALL·E, Gemini | Aligns image + text using cross-attention                     |
+| Whisper        | Decodes audio using attention to phonetic and word-level cues |
+
+
+🔷 7. Visual Summary
+Input:         [ The ] [ cat ] [ sat ]
+Embeddings:     x₁     x₂      x₃
+
+Q = xW_Q        Q₁     Q₂      Q₃
+K = xW_K        K₁     K₂      K₃
+V = xW_V        V₁     V₂      V₃
+
+Score (Q₃•K₂) → how much "sat" looks at "cat"
+
+soft_max → gives weights → apply to V₁, V₂, V₃
+Self-Attention allows each word/token to dynamically focus on other parts of the input sequence, enabling deep contextual understanding in GenAI models.

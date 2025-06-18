@@ -1,0 +1,115 @@
+ 1. What is Masked Self-Attention?
+Masked Self-Attention is a variant of self-attention used in decoder blocks of Transformers, especially in generative tasks like text generation.It prevents the model from “seeing” future tokens during training — ensuring it only attends to the left-side (past and present) tokens.
+
+
+
+🔷 2. Why is Masked Self-Attention needed?
+✴️ In Generative AI:
+When generating a sequence (e.g., text), the model must predict the next word one step at a time, based only on previous words.
+
+If it sees future words during training, it’s like cheating.
+
+🔒 So, Masking ensures:
+❌ No peeking into future tokens
+
+✅ True autoregressive behaviour
+
+
+🔷 3. How does Masked Self-Attention work?
+It modifies the Self-Attention mechanism by adding a mask matrix that blocks (masks) out future positions.
+
+In simple terms:
+
+Normal Self-Attention: All tokens attend to all other tokens
+
+Masked Self-Attention: Token at position I can only attend to tokens at positions ≤ I 
+
+🔷 4. Formula of Masked Self-Attention
+| Step                        | Formula                                                   |
+| --------------------------- | --------------------------------------------------------- |
+| 1. Create Q, K, V           | `Q = XW_Q`, `K = XW_K`, `V = XW_V`                        |
+| 2. Compute attention scores | `S = QKᵀ / √d_k`                                          |
+| 3. Apply mask               | `S_masked = S + M`, where **M = -∞ for future positions** |
+| 4. Soft_max + apply to V     | `A = soft_max(S_masked) × V`                               |
+
+
+🔷 5. What is the Mask Matrix?
+For a sequence of 4 tokens, the mask matrix looks like:
+For a sequence of 4 tokens, the mask matrix looks like:
+
+[
+ [0, -∞, -∞, -∞],
+ [0,  0, -∞, -∞],
+ [0,  0,  0, -∞],
+ [0,  0,  0,  0]
+]
+
+
+
+0 means can attend
+
+-∞ means masked
+
+When passed through soft_max, -∞ becomes 0 probability.
+
+
+🔷 6. Example
+Input sequence: "I love ___"
+You want the model to predict the next word.
+
+Let tokens be:
+
+Token 1: "I"
+
+Token 2: "love"
+
+Token 3: <mask> (what we’re predicting)
+
+Without masking: Token 1 could attend to Token 2 and 3 — cheating!
+
+With masking:
+
+Token 1: attends only to itself
+
+Token 2: attends to 1 and 2
+
+Token 3: attends to 1, 2, 3
+
+But when generating token 3, it should not see its own correct value — masking enforces this.
+
+
+🔷 7. Where is it used?
+| Model              | Masked Self-Attention Used? | Role                              |
+| ------------------ | --------------------------- | --------------------------------- |
+| GPT (all versions) | ✅ Yes                       | Decoder-only, for generation      |
+| BERT               | ❌ No                        | Encoder-only, uses full attention |
+| T5 (decoder)       | ✅ Yes                       | Text-to-text generation tasks     |
+
+
+
+🔷 8. Pros and Cons
+| Pros ✅                               | Cons ❌                                    |
+| ------------------------------------ | ----------------------------------------- |
+| Prevents information leakage         | Slightly more complex implementation      |
+| Enables true autoregressive modelling | Can't use bidirectional context           |
+| Essential for generative tasks       | Less accurate in some understanding tasks |
+
+
+🔷 9. Summary Table
+| Component      | Description                                                                  |
+| -------------- | ---------------------------------------------------------------------------- |
+| Purpose        | Restrict model from seeing future tokens during training                     |
+| Used In        | Decoder part of Transformer (GPT, T5 decoder, etc.)                          |
+| Key Operation  | Mask upper triangular part of attention score matrix                         |
+| Formula        | `soft_max((QKᵀ / √d_k) + M) × V`, where M masks future positions              |
+| Why Important? | Ensures fairness, enables sequence generation like humans do (left to right) |
+
+
+Auto regression:- sequential x y z (z works when it should have x , y)
+non auto regression:- parallel x y z
+encoder:-
+decoder:- training prediction 
+inference:- prediction
+
+
+problem with self attention which is solved by masked self attention :- Self-attention sees all tokens (past + future), which causes information leakage during training in generative tasks — masked self-attention solves this by blocking future tokens.

@@ -66,15 +66,15 @@ Instead of using only the final encoder state (c), Attention lets the decoder lo
 | Step                    | Formula                                         | Description                             |
 | ----------------------- | ----------------------------------------------- | --------------------------------------- |
 | 6. Attention Score      | $e_{t,s} = \text{score}(h_t^{dec}, h_s^{enc})$  | Compare decoder state to encoder states |
-| 7. Attention Weights    | $\alpha_{t,s} = \text{softmax}(e_{t,s})$        | Normalized importance                   |
+| 7. Attention Weights    | $\alpha_{t,s} = \text{soft max}(e_{t,s})$        | Normalized importance                   |
 | 8. Context Vector       | $c_t = \sum_s \alpha_{t,s} h_s^{enc}$           | Weighted sum of encoder states          |
-| 9. Final Decoder Output | $y_t = \text{softmax}(W_{ho} [h_t^{dec}; c_t])$ | Decoder output using attention          |
+| 9. Final Decoder Output | $y_t = \text{soft max}(W_{h o} [h_t^{dec}; c_t])$ | Decoder output using attention          |
 
 
 
 | Task                    | Input                             | Output             | Model Type                   |
 | ----------------------- | --------------------------------- | ------------------ | ---------------------------- |
-| **Machine Translation** | "How are you?"                    | "Comment ça va ?"  | Seq2Seq with attention       |
+| **Machine Translation** | "How are you?"                    | "Comment ç a va ?"  | Seq2Seq with attention       |
 | **Text Summarization**  | Long paragraph                    | Short summary      | Transformer Encoder–Decoder  |
 | **Image Captioning**    | Image (encoded as feature vector) | "A cat on a bed"   | CNN + RNN decoder            |
 | **Speech to Text**      | Audio waveform                    | Text transcription | Audio encoder + text decoder |
