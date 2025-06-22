@@ -1,0 +1,43 @@
+Layer Normalization (LayerNorm) is a technique to normalize the inputs across the features (channels) for each data point independently.
+
+It is widely used in transformers (like GPT, BERT) to stabilize and speed up training.
+
+🎯 Why is LayerNorm Needed?
+Helps reduce internal covariate shift
+
+Improves training stability and convergence speed
+
+Works better than BatchNorm in non-sequential, variable-length, or small-batch tasks (like NLP)
+
+⚙️ How It Works:
+It normalizes the values within a single input sample, i.e., across the hidden dimensions of a token embedding
+| Symbol     | Meaning                                |
+| ---------- | -------------------------------------- |
+| $x$        | Input vector (e.g., token embedding)   |
+| $\mu$      | Mean of the vector $x$                 |
+| $\sigma$   | Standard deviation of $x$              |
+| $\epsilon$ | Small constant for numerical stability |
+| $\gamma$   | Learnable scale parameter              |
+| $\beta$    | Learnable shift parameter              |
+| $\hat{x}$  | Normalized output                      |
+
+What: Normalizes token embeddings across features
+
+Why: Improves training stability in transformers
+
+How: Subtract mean, divide by std, apply scale/shift
+
+Used in: Almost all Transformer blocks (before/after attention or MLP)
+
+| Feature                  | Batch Normalization          | Layer Normalization     |
+| ------------------------ | ---------------------------- | ----------------------- |
+| Normalizes over          | Batch and spatial dimensions | Features of each sample |
+| Best for                 | Vision/CNNs                  | NLP/Transformers        |
+| Sensitive to batch size? | Yes                          | No                      |
+
+
+| **Step**            | **Formula**                                                           |
+| ------------------- | --------------------------------------------------------------------- |
+| **Mean (μ)**        | $\mu = \frac{1}{d} \sum_{i=1}^{d} x_i$                                |
+| **Variance (σ)**    | $\sigma = \sqrt{\frac{1}{d} \sum_{i=1}^{d} (x_i - \mu)^2 + \epsilon}$ |
+| **Normalize (x̂ᵢ)** | $\hat{x}_i = \gamma \cdot \frac{x_i - \mu}{\sigma} + \beta$           |

@@ -1,0 +1,42 @@
+Positional Encoding gives information about the position of each token in a sequence to the Transformer model, which has no built-in notion of order.
+
+Transformers treat input tokens in parallel, unlike RNNs which are sequential. So we explicitly inject position information using positional encodings.
+
+Positional Encoding gives information about the position of each token in a sequence to the Transformer model, which has no built-in notion of order.
+
+Transformers treat input tokens in parallel, unlike RNNs which are sequential. So we explicitly inject position information using positional encodings.
+
+| Type                   | Description                                        |
+| ---------------------- | -------------------------------------------------- |
+| **Fixed (Sinusoidal)** | Uses sine/cosine functions of positions            |
+| **Learned**            | Learned position embeddings (like word embeddings) |
+
+
+🧠 What It Does:
+It allows the model to:
+
+Know which token is first, second, etc.
+
+Encode relative and absolute position
+
+Understand sequence structure
+
+| Aspect      | Positional Encoding                                         |
+| ----------- | ----------------------------------------------------------- |
+| **Why**     | Transformers don’t know order by default                    |
+| **What**    | Injects position info into embeddings                       |
+| **How**     | Adds fixed (sin/cos) or learned vectors to token embeddings |
+| **Used In** | All transformer-based models like GPT, BERT, T5, etc.       |
+
+
+| Term  | Meaning                           |
+| ----- | --------------------------------- |
+| pos | Position in sequence (0 to n-1)   |
+| i   | Dimension index (0 to d\_model-1) |
+| d   | Embedding dimension (d\_model)    |
+
+
+| Index Type   | Formula                                                              |
+| ------------ | -------------------------------------------------------------------- |
+| Even (2i)    | $PE(pos, 2i) = \sin\left(\frac{pos}{10000^{\frac{2i}{d}}} \right)$   |
+| Odd (2i + 1) | $PE(pos, 2i+1) = \cos\left(\frac{pos}{10000^{\frac{2i}{d}}} \right)$ |

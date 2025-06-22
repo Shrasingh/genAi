@@ -1,0 +1,54 @@
+Cross attention is a mechanism where a model learns to align and attend to information from another sequence—usually between an encoder and a decoder.
+
+
+
+🎯 Why is Cross Attention Needed?
+In sequence-to-sequence tasks like:
+
+Machine Translation (e.g., English → French)
+
+Text-to-Image (e.g., in Diffusion Models)
+
+Summarization, Question Answering
+
+The decoder needs to focus on relevant parts of the encoder's output. Self-attention isn’t enough here because it only attends to the same sequence.
+
+
+🛠️ How It Works (High-level Intuition):
+You have two sequences:
+
+Query (Q): from decoder (what I’m trying to generate)
+
+Key (K) & Value (V): from encoder (what I’m attending to)
+
+Cross attention computes attention between these 
+
+Attention(Q_from_decoder, K_from_encoder, V_from_encoder)
+
+So the decoder knows what to focus on from the encoder output while generating each token.
+
+| Component | Description                         |
+| --------- | ----------------------------------- |
+| Q         | Queries (from decoder hidden state) |
+| K         | Keys (from encoder output)          |
+| V         | Values (from encoder output)        |
+
+Attention(Q, K, V) = soft_max(Q × Kᵀ / √dₖ) × V
+
+
+| Feature   | Self-Attention                   | Cross-Attention                           |
+| --------- | -------------------------------- | ----------------------------------------- |
+| Query     | From same sequence               | From decoder                              |
+| Key/Value | From same sequence               | From encoder                              |
+| Use case  | Encoding context/self-dependency | Decoder referencing encoder's information |
+
+
+✅ Summary:
+Cross Attention = Decoder attending to Encoder
+
+Why: Helps decoder focus on encoder outputs to generate relevant tokens
+
+How: Uses Q (decoder), K/V (encoder) in dot-product attention
+
+Used in: Transformers, GPT-4, BERT2BERT, Text-to-Image, Diffusion models
+

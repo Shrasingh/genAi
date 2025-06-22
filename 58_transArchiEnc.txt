@@ -1,0 +1,183 @@
+📘 Transformer Architecture - Full Notes
+The Transformer architecture was introduced in the paper "Attention is All You Need" by Vaswani et al., 2017. It is widely used in NLP tasks (translation, summarization, etc.) and the backbone of models like BERT, GPT, T5.
+
+
+✅ 1. Why Transformer?
+Limitations of previous models:
+| Model      | Problem                                                           |
+| ---------- | ----------------------------------------------------------------- |
+| RNNs/LSTMs | Sequential processing (slow), can't parallelize well              |
+| CNNs       | Limited long-range dependencies, not suited for sequence mode ling |
+
+
+Transformer solves this by:
+Using self-attention (handles long-range dependencies)
+
+Allowing parallelization (faster training)
+
+Removing recurrence entirely
+
+✅ 2. High-Level Transformer Overview
+The transformer has:
+
+Encoder-Decoder structure (original form for translation)
+
+Stacked blocks (usually 6–12 or more)
+
+Uses Multi-Head Self-Attention and Feed-Forward layers
+
+
+Input --> [Encoder Stack] --> [Decoder Stack] --> Output
+
+
+✅ 3. Components of Transformer
+🔶 A. Positional Encoding
+Since transformers don’t use recurrence, they need positional information.
+
+Formula for positional encoding (from original paper):
+| Position (po s), dimension (i), model size (d\_model) | Formula                                        |
+| ---------------------------------------------------- | ---------------------------------------------- |
+| Even indices                                         | PE(po s, 2i) = sin(po s / 10000^(2i/d\_model))   |
+| Odd indices                                          | PE(po s, 2i+1) = cos(po s / 10000^(2i/d\_model)) |
+
+🔶 B. Input Embedding
+Words are converted to vectors (via embedding layer)
+
+Combined with positional encodings:
+input_embeddings = token_embeddings + positional_encoding
+
+
+🔶 C. Self-Attention (Core Mechanism)
+Each word attends to all other words, including itself, using a score-based mechanism.
+
+Key idea:
+Every input token is converted to three vectors:
+
+Query (Q)
+
+Key (K)
+
+Value (V)
+
+Steps:
+Compute attention scores: score = Q × Kᵀ
+
+Scale scores: score_scaled = score / √d_k
+
+Apply soft_max to get attention weights.
+
+Multiply by V to get final output.
+| Step              | Formula                                       |
+| ----------------- | --------------------------------------------- |
+| Attention weights | Soft_max(QKᵀ / √d\_k)                          |
+| Attention output  | Attention(Q, K, V) = soft_max(QKᵀ / √d\_k) × V |
+
+
+🔶 D. Multi-Head Attention
+Instead of one set of Q, K, V, we use h different sets (heads) in parallel.
+
+Helps model multiple types of relationships.
+
+Each head learns different attention patterns.
+| Component    | Formula                                           |
+| ------------ | ------------------------------------------------- |
+| Each head    | head\_i = Attention(QWᵢ^Q, KWᵢ^K, VWᵢ^V)          |
+| Final output | MultiHead(Q,K,V) = Conca t(head₁, ..., head\_h)W^O |
+Where:
+
+Wᵢ^Q, Wᵢ^K, Wᵢ^V = projection matrices per head
+
+W^O = output projection matrix
+
+🔶 E. Add & Norm
+After each sub-layer (like attention or feedforward), we apply:
+
+Residual connection (skip connection)
+
+Layer normalization
+output = LayerNorm(x + Sublayer(x))
+🔶 F. Feed Forward Neural Network (FFN)
+Each position has its own fully connected feedforward network:
+FFN(x) = max(0, xW₁ + b₁)W₂ + b₂
+Usually:
+
+W₁ expands dimension (e.g., 512 → 2048)
+
+W₂ reduces back to original size
+🔶 G. Encoder Block
+Each encoder block consists of:
+
+Multi-Head Self-Attention
+
+Add & Norm
+
+Feed Forward
+
+Add & Norm
+Input --> [Multi-Head Attention] --> [FFN] --> Output
+🔶 H. Decoder Block
+Decoder has two attentions:
+
+Masked Multi-Head Self-Attention (to prevent looking ahead)
+
+Encoder-Decoder Attention (attend to encoder output)
+Input --> [Masked MHA] --> [Enc-Dec Attention] --> [FFN] --> Output
+
+
+✅ 4. Full Transformer Architecture
+                +-----------------+
+                | Input Embedding |
+                +--------+--------+
+                         |
+                         v
+              +----------------------+
+              | Positional Encoding  |
+              +----------------------+
+                         |
+                         v
+                 [Encoder Block × N]
+                         |
+                         v
+              +---------------------+
+              | Decoder Embedding   |
+              +---------------------+
+                         |
+                         v
+              +----------------------+
+              | Positional Encoding  |
+              +----------------------+
+                         |
+                         v
+                 [Decoder Block × N]
+                         |
+                         v
+              +------------------------+
+              | Final Linear + Soft_max |
+              +------------------------+
+                         |
+                         v
+                      Output
+
+
+
+
+✅ 5. Summary Table
+| Component            | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| Input Embedding      | Converts tokens to vectors                                   |
+| Positional Encoding  | Adds sequence position info using sin/cos functions          |
+| Self-Attention       | Allows tokens to attend to each other using Q, K, V          |
+| Multi-Head Attention | Learns multiple attention patterns in parallel               |
+| Add & Norm           | Residual + LayerNorm to stabilize and speed up training      |
+| Feed Forward         | Pointwise dense network with ReLU                            |
+| Encoder Stack        | N layers of attention + FFN                                  |
+| Decoder Stack        | Same as encoder + encoder-decoder attention                  |
+| Output Layer         | Linear + soft_max for classification or next-token prediction |
+
+
+✅ 6. Training & Inference
+Loss: Cross Entropy
+
+Optimization: Adam optimizer with warm-up learning rate
+
+During inference, decoding is done using greedy, beam search, or sampling
