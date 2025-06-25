@@ -1,0 +1,107 @@
+✅ What is Hugging Face?
+Hugging Face is an AI/ML platform offering tools, models, and libraries to work with natural language processing (NLP) and Large Language Models (LLMs).
+
+Key tool: Transformers library — makes it easy to use pre-trained models like BERT, GPT, LLaMA, etc.
+
+❓ Why Hugging Face?
+🔧 Easy access to thousands of pre-trained models
+
+🧪 Simplifies text, image, and audio ML tasks
+
+💬 Popular for NLP and open-source LLMs
+
+👥 Community sharing + collaboration on models/datasets
+
+⚙️ How Hugging Face Works?
+Install Library
+
+bash
+Copy
+Edit
+pip install transformers
+Load a Model & Tokenizer
+
+python
+Copy
+Edit
+from transformers import AutoTokenizer, AutoModel
+
+tokenizer = AutoTokenizer.from_pretrained("b e rt-base-uncased")
+model = AutoModel.from_pretrained("b e rt-base-uncased")
+Use Models for Tasks (like text generation, classification, etc.)
+
+
+
+
+✅ What is pipeline?
+The pipeline is a high-level API in Hugging Face’s transformers library that makes it super easy to use pre-trained models for common tasks like:
+
+Text classification
+
+Question answering
+
+Translation
+
+Text generation
+
+Summarization
+
+Named Entity Recognition (NER)
+🔄 1. Data Processing
+✅ Purpose: Prepare raw text/data into a model-ready format
+🔑 Key Terms:
+Dataset – Collection of text samples (can use datasets library)
+
+Pre-processing – Cleaning, lowercasing, removing stop words, etc.
+
+Batching – Grouping multiple samples for efficient training/inference
+
+💡 Example:
+
+from datasets import load_dataset
+dataset = load_dataset("I m d b", split="train")
+
+
+🧩 2. Tokenization
+✅ Purpose: Convert raw text → tokens → IDs that models can understand
+🔑 Key Terms:
+Tokenizer – Breaks text into tokens (words/sub words)
+
+Vocabulary – Mapping of tokens to integers
+
+Special Tokens – [CLS], [SEP], <pad>, <e o s> etc.
+
+Padding – Making sequences same length
+
+Truncation – Cutting long text to fit max length
+
+💡 Example:
+python
+Copy code
+from transformers import AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained("be r t-base-uncased")
+encoded = tokenizer("Hello world!", padding="max_length", truncation=True, max_length=10)
+🧠 3. Feature Extraction
+✅ Purpose: Extract meaningful numerical representations (embeddings) from text
+🔑 Key Terms:
+Hidden States – Intermediate outputs from transformer layers
+
+Embeddings – Vector representations of tokens/sentences
+
+CLS Token Output – Often used as the sentence-level feature
+
+Last Hidden Layer – Usually used for downstream tasks
+
+💡 Example:
+python
+Copy code
+from transformers import AutoModel
+model = AutoModel.from_pretrained("be r t-base-uncased")
+outputs = model(**tokenizer("Hello world!", return_tensors="p t"))
+features = outputs.last_hidden_state
+📌 Summary Table
+Stage	Tool	Purpose
+Data Processing	datasets	Load and clean data
+Tokenization	AutoTokenizer	Convert text to token IDs
+Feature Extraction	AutoModel	Extract embeddings from text
+

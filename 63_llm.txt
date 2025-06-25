@@ -1,0 +1,115 @@
+🔍 WHAT is Training of ChatGPT and LLMs?
+Training an LLM like ChatGPT means teaching it how to understand and generate human-like text by showing it huge amounts of data, so it can learn patterns in language (like grammar, facts, and logic).
+
+It’s similar to how humans learn by reading a lot — books, articles, websites, etc.
+
+
+
+❓ WHY are LLMs like ChatGPT Trained?
+They are trained to:
+| Goal                          | Example                                                         |
+| ----------------------------- | --------------------------------------------------------------- |
+| Understand language           | Understand “apple” means a fruit, or a company based on context |
+| Generate human-like responses | Chatting, storytelling, or answering questions                  |
+| Perform multiple tasks        | Translation, summarization, reasoning, coding                   |
+| Reduce manual effort          | Automating writing, emails, support, etc.                       |
+
+
+⚙️ HOW is ChatGPT (an LLM) Trained?
+🧠 It happens in 3 major stages:
+🥇 1. Pretraining
+✅ Purpose:
+Learn general language patterns from a massive dataset.
+
+📚 Data Used:
+Web pages (Common Crawl)
+
+Wikipedia
+
+Books
+
+Forums (e.g., Reddit, StackExchange)
+
+Code repositories (for code LLMs)
+
+🔄 Process:
+Model reads billions of sentences
+
+Trained using self-supervised learning
+
+Learns by predicting next word or masked word
+
+🔍 Example:
+If input is:
+
+"The capital of France is ___"
+Model predicts: "Paris"
+
+This happens trillions of times on billions of words.
+
+🥈 2. Fine-Tuning
+✅ Purpose:
+Make the model more useful, safer, and task-specific.
+
+🔄 Process:
+Train the model on specific tasks or formats (e.g., question-answering)
+
+Remove harmful or biased outputs
+
+Add instruction-following ability
+
+🧪 Example:
+Before fine-tuning:
+
+Q: What's 2 + 2?
+A: Paris
+
+After fine-tuning:
+
+Q: What's 2 + 2?
+A: 4
+
+🥉 3. RLHF (Reinforcement Learning with Human Feedback)
+✅ Purpose:
+Align the model’s behaviour with human preferences (politeness, correctness, helpfulness).
+
+🔁 Process:
+Human reviewers rank different model outputs
+
+A reward model is trained to mimic human preferences
+
+LLM is fine-tuned using reinforcement learning to prefer better answers
+
+💡 Example:
+Given the prompt:
+
+"Explain gravity to a 5-year-old"
+
+Version A: “Gravity is the force by which a planet or other body draws objects toward its centre.”
+
+Version B: “Gravity is what makes things fall when you drop them.”
+
+Humans prefer Version B — model learns to generate such helpful answers.
+
+📊 Training Tools & Technologies
+| Component    | Tool                                           |
+| ------------ | ---------------------------------------------- |
+| Framework    | P y Torch, TensorFlow                            |
+| Architecture | Transformer                                    |
+| Hardware     | GPUs, TPUs (e.g., NVIDIA A100s)                |
+| Optimization | Adam optimizer, gradient clipping, parallelism |
+| Tokenizer    | Byte Pair Encoding (BPE), WordPiece, etc.      |
+
+📦 Model Sizes (Examples)
+| Model | Parameters                                    |
+| ----- | --------------------------------------------- |
+| GPT-2 | 1.5 billion                                   |
+| GPT-3 | 175 billion                                   |
+| GPT-4 | Estimated 500B–1T+ (not officially confirmed) |
+
+
+| Aspect   | Answer                                                                        |
+| -------- | ----------------------------------------------------------------------------- |
+| **What** | Training = Teaching LLMs language patterns using massive text data            |
+| **Why**  | To understand/generate language, automate tasks, assist humans                |
+| **How**  | In 3 stages: Pretraining → Fine-tuning → RLHF using transformers and big data |

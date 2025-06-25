@@ -1,0 +1,30 @@
+✅ How to Use Open-Source LLMs 
+Choose a Model
+➤ Examples: LLaMA, Mistral, Falcon, GPT-J, Bloom, Mixt r al
+
+Pick a Platform
+➤ Options: Hugging Face Transformers, O l lama, LangChain, LM Studio, Docker
+
+Install Requirements
+
+bash
+Copy code
+pip install transformers torch
+Load Model & Tokenizer (via Hugging Face)
+
+python
+Copy code
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat")
+model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-2-7b-chat")
+Generate Text
+
+python
+Copy code
+input_ids = tokenizer("Hello, how are you?", return_tensors="p t").input_ids
+output = model.generate(input_ids, max_length=50)
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+Optional: Use with UI Tool
+➤ Tools like LM Studio or O l l ama let you chat with models locally
+
